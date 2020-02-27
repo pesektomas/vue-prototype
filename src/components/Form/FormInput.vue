@@ -13,6 +13,8 @@
 				:name=this.name
 				required="required"
 				class="input"
+				v-bind:value="value"
+				v-on:input="$emit('input', $event.target.value)"
 			/>
 			<span
 				class="js-validation-errors-list js-validation-error-list-order_personal_info_form_firstName form-error form-error--line display-none"
@@ -33,7 +35,8 @@
 			label: { type: String },
 			name: { type: String },
 			id: { type: String },
-			required: { type: Boolean }
+			required: { type: Boolean },
+			value: { type: Object }
 		}
 	}
 </script>

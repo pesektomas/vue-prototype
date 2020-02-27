@@ -11,6 +11,8 @@
 				:name=this.name
 				class="input input--textarea"
 				rows="8"
+				v-bind:value="value"
+				v-on:input="$emit('input', $event.target.value)"
 			></textarea>
 			<span
 				class="js-validation-errors-list js-validation-error-list-order_personal_info_form_note form-error form-error--line display-none"
@@ -30,7 +32,8 @@
 		props: {
 			label: { type: String },
 			name: { type: String },
-			id: { type: String }
+			id: { type: String },
+			value: { type: Object }
 		}
 	}
 </script>

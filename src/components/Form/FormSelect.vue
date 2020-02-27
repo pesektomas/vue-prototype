@@ -11,6 +11,8 @@
 				:id=this.id
 				:name=this.name
 				class="input"
+				v-bind:value="value"
+				v-on:input="$emit('input', $event.target.value)"
 			>
 				<option 
 					v-for="option in this.options" 
@@ -41,7 +43,8 @@
 			name: { type: String },
 			id: { type: String },
 			required: { type: Boolean },
-			options: { type: Array }
+			options: { type: Array },
+			value: { type: Object }
 		}
 	}
 </script>

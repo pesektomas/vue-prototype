@@ -6,7 +6,8 @@
 				:id=this.id
 				:name=this.name
 				class="css-checkbox"
-				value="1"
+				v-bind:value="value"
+				v-on:input="$emit('input', !value)"
 			/>
 			<label
 				class="css-checkbox__image"
@@ -32,7 +33,8 @@
 		props: {
 			label: { type: String },
 			name: { type: String },
-			id: { type: String }
+			id: { type: String },
+			value: { type: Object }
 		}
 	}
 </script>

@@ -2,8 +2,8 @@
 	<label class="box-chooser__item box-chooser__item--active" for="transport_and_payment_form_transport_0">
 		<span class="box-chooser__item__check">
 			<input 
-				type="checkbox"
-				class="css-checkbox"
+				type="radio"
+				class="css-radio"
 				:name="name"
 				:value="id"
 				:data-id="id" 
@@ -11,7 +11,7 @@
 				@change="changeValue(parseInt(event.target.value, 10))"
 				:disabled="disabled"
 			>
-			<span class="css-checkbox__image" @click="changeValue(id)"></span>
+			<span class="css-radio__image" @click="changeValue(id)"></span>
 		</span>
 
 		<span class="box-chooser__item__image">
