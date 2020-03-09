@@ -58,7 +58,7 @@
 					<div class="in-action">
 						<div class="in-action__right">
 							<div>
-								<router-link to="/order/2" class="btn btn--success in-action__btn">Order</router-link>
+								<router-link to="/order/2" :class="{ 'btn btn--success': true, 'in-action__btn': true, 'btn--disabled': isBtnDisabled() }">Order</router-link>
 							</div>
 						</div>
 						<div class="in-action__left">
@@ -83,28 +83,28 @@
 		},
 		methods: {
 			removeItem(productUuid) {
-				this.productsInCart = this.productsInCart.filter(item => item.uuid  !== productUuid);				
+				this.$store.commit('removeProductFromCart', productUuid);
 			}, 
 			plusQuantity(productUuid) {
-				const product = this.productsInCart.find(item => item.uuid  !== productUuid);
-				const itemIdx = this.productsInCart.indexOf(product);
-				product.quantity ++;
-				product.priceTotal = product.price * product.quantity;
+				const productToUpdate = this.$store.state.productsInCart.find(item => item.uuid  === productUuid);
+				const productIdx = this.$store.state.productsInCart.indexOf(productToUpdate);
+				productToUpdate.quantity ++;
+				productToUpdate.priceTotal = productToUpdate.price * productToUpdate.quantity;
 
-				this.productsInCart.splice(itemIdx, 1, product);
+				this.$store.commit('changeProductInCart', { productIdx, productToUpdate });
 			},
 			minusQuantity(productUuid) {
-				const product = this.productsInCart.find(item => item.uuid  !== productUuid);
-				const itemIdx = this.productsInCart.indexOf(product);
-				if (product.quantity > 1) {
-					product.quantity --;
-					product.priceTotal = product.price * product.quantity;
-				}
+				const productToUpdate = this.productsInCart.find(item => item.uuid  === productUuid);
+				const productIdx = this.productsInCart.indexOf(productToUpdate);
+				if (productToUpdate.quantity > 1) {
+					productToUpdate.quantity --;
+					productToUpdate.priceTotal = productToUpdate.price * productToUpdate.quantity;
 
-				this.productsInCart.splice(itemIdx, 1, product);
+					this.$store.commit('changeProductInCart', { productIdx, productToUpdate });
+				}
 			},
 			isBtnDisabled() {
-				return this.productsInCart.length === 0;
+				return this.$store.state.productsInCart.length === 0;
 			}
 		},
 		computed: {

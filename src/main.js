@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
 
 import About from './components/About.vue'
 import Homepage from './components/Homepage/Homepage.vue'
@@ -9,15 +10,21 @@ import OrderStepTransportAndPayment from './components/Order/OrderStepTransportA
 import OrderStepDeliveryData from './components/Order/OrderStepDeliveryData.vue'
 
 import OrderPreview from './state/OrderPreview'
-import { productsInCart, shippingMethods, paymentMethods, shippingAndPaymentRelations } from './api';
+import { shippingMethods, paymentMethods, shippingAndPaymentRelations } from './api';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
+const vuexPersist = new VuexPersist({
+	key: 'vue-prototype',
+	storage: window.localStorage
+});
+
 const store = new Vuex.Store({
 	state: {
 		orderPreview: new OrderPreview(shippingMethods, paymentMethods, shippingAndPaymentRelations),
-		productsInCart: productsInCart,
+		productsInCart: [],
+		deliveryData: {}
 	},
 	mutations: {
 		setShippingMethod (state, shippingMethod) {
@@ -31,8 +38,18 @@ const store = new Vuex.Store({
 		},
 		setPaymentMethods(state, paymentMethods) {
 			state.orderPreview.setPaymentMethods(paymentMethods);
+		},
+		addProductIntoCart(state, productToCart) {
+			state.productsInCart.push(productToCart);
+		},
+		removeProductFromCart(state, productUuidToRemove) {
+			state.productsInCart = state.productsInCart.filter(item => item.uuid !== productUuidToRemove);
+		},
+		changeProductInCart(state, { productIdx, productToUpdate }) {
+			state.productsInCart.splice(productIdx, 1, productToUpdate);
 		}
-	}
+	},
+	plugins: [vuexPersist.plugin]
 });
 
 const router = new VueRouter({

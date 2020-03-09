@@ -24,8 +24,8 @@
 		<td class="table-cart__cell table-cart__cell--amount">
 			<span class="form-input-spinbox">
 				<input type="text" name="cart_form[quantities][4]" required="required" class="form-input-spinbox__input input-no-style input" :value="product.quantity">
-				<button type="button" class="btn-no-style form-input-spinbox__btn" v-on:click="plusQuantity">+</button>
-				<button type="button" class="btn-no-style form-input-spinbox__btn form-input-spinbox__btn--minus" v-on:click="minusQuantity">-</button>
+				<button type="button" class="btn-no-style form-input-spinbox__btn" v-on:click="plusQuantity(product.uuid)">+</button>
+				<button type="button" class="btn-no-style form-input-spinbox__btn form-input-spinbox__btn--minus" v-on:click="minusQuantity(product.uuid)">-</button>
 			</span>
 		</td>
 		<td class="table-cart__cell table-cart__cell--price">

@@ -50,7 +50,7 @@
 				</div>
 				<div class="in-action">
 					<div class="in-action__right">
-						<router-link to="/order/3" class="btn btn--success in-action__btn">Continue in orde</router-link>
+						<router-link to="/order/3" :class="{ 'btn btn--success': true, 'in-action__btn': true, 'btn--disabled': isBtnDisabled() }">Continue in orde</router-link>
 					</div>
 					<div class="in-action__left">
 						<router-link to="/order" class="btn in-action__btn">Back to cart</router-link>
@@ -100,8 +100,8 @@
 		name: 'OrderStepTransportAndPayment',
 		data: function() {
 			return {
-				shipping: 0,
-				payment: 0
+				shipping: this.$store.state.orderPreview.shippingMethod.id || 0,
+				payment: this.$store.state.orderPreview.paymentMethod.id || 0
 			}
 		},
 		computed: {
@@ -145,6 +145,9 @@
 				}
 
 				this.$store.commit('setPaymentMethod', this.payment);
+			},
+			isBtnDisabled() {
+				return this.$store.state.orderPreview.paymentMethod === null || this.$store.state.orderPreview.shippingMethod === null;
 			}
 		}
 	}
