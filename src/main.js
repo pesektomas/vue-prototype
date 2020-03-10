@@ -1,15 +1,16 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex'
-import VuexPersist from 'vuex-persist'
+import Vuex from 'vuex';
+import VuexPersist from 'vuex-persist';
 
-import About from './components/About.vue'
-import Homepage from './components/Homepage/Homepage.vue'
-import OrderStepCart from './components/Order/OrderStepCart.vue'
-import OrderStepTransportAndPayment from './components/Order/OrderStepTransportAndPayment.vue'
-import OrderStepDeliveryData from './components/Order/OrderStepDeliveryData.vue'
+import About from './components/About.vue';
+import Homepage from './components/Homepage/Homepage.vue';
+import OrderStepCart from './components/Order/OrderStepCart.vue';
+import OrderStepTransportAndPayment from './components/Order/OrderStepTransportAndPayment.vue';
+import OrderStepDeliveryData from './components/Order/OrderStepDeliveryData.vue';
 
-import OrderPreview from './state/OrderPreview'
+import OrderPreview from './state/OrderPreview';
+import DeliveryData from './state/DeliveryData';
 import { shippingMethods, paymentMethods, shippingAndPaymentRelations } from './api';
 
 Vue.use(VueRouter);
@@ -24,7 +25,7 @@ const store = new Vuex.Store({
 	state: {
 		orderPreview: new OrderPreview(shippingMethods, paymentMethods, shippingAndPaymentRelations),
 		productsInCart: [],
-		deliveryData: {}
+		deliveryData: new DeliveryData()
 	},
 	mutations: {
 		setShippingMethod (state, shippingMethod) {
@@ -47,6 +48,11 @@ const store = new Vuex.Store({
 		},
 		changeProductInCart(state, { productIdx, productToUpdate }) {
 			state.productsInCart.splice(productIdx, 1, productToUpdate);
+		},
+		changeDeliveryData(state, { property, value }) {
+			if (property in state.deliveryData) {
+				state.deliveryData[property] = value;
+			}
 		}
 	},
 	plugins: [vuexPersist.plugin]

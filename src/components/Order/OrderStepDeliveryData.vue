@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<OrderNavigation />
+		<div class="web__line" v-if="deliveryData.errors.length > 0">
+			{{ deliveryData.errors }}
+		</div>
+
 		<div class="web__line">
 			<div class="web__container">
 			<div class="box-order">
@@ -11,8 +15,8 @@
 						label="First name"
 						id="order_personal_info_form_firstName"
 						name="order_personal_info_form[firstName]"
-						v-bind:value="OrderData.firstName"
-						v-on:input="OrderData.firstName = $event"
+						v-bind:value="deliveryData.firstName"
+						v-on:input="setDeliveryData('firstName', $event)"
 						required
 					/>
 
@@ -20,8 +24,8 @@
 						label="Last name"
 						id="order_personal_info_form_lastName"
 						name="order_personal_info_form[lastName]"
-						v-bind:value="OrderData.lastName"
-						v-on:input="OrderData.lastName = $event"
+						v-bind:value="deliveryData.lastName"
+						v-on:input="setDeliveryData('lastName', $event)"
 						required
 					/>
 					
@@ -29,8 +33,8 @@
 						label="Email"
 						id="order_personal_info_form_email"
 						name="order_personal_info_form[email]"
-						v-bind:value="OrderData.email"
-						v-on:input="OrderData.email = $event"
+						v-bind:value="deliveryData.email"
+						v-on:input="setDeliveryData('email', $event)"
 						required
 					/>
 
@@ -38,8 +42,8 @@
 						label="Telephone"
 						id="order_personal_info_form_telephone"
 						name="order_personal_info_form[telephone]"
-						v-bind:value="OrderData.telephone"
-						v-on:input="OrderData.telephone = $event"
+						v-bind:value="deliveryData.telephone"
+						v-on:input="setDeliveryData('telephone', $event)"
 						required
 					/>
 				</fieldset>
@@ -52,16 +56,16 @@
 						label="I buy on company behalf"
 						name="order_personal_info_form[companyCustomer]"
 						id="order_personal_info_form_companyCustomer"
-						v-bind:value="OrderData.companyCustomer"
-						v-on:input="OrderData.companyCustomer = $event"
+						v-bind:value="deliveryData.companyCustomer"
+						v-on:input="setDeliveryData('companyCustomer', $event)"
 					/>
-					<div id="js-company-fields" v-if="OrderData.companyCustomer">
+					<div id="js-company-fields" v-if="deliveryData.companyCustomer">
 						<FormInput 
 							label="Company name"
 							id="order_personal_info_form_companyName"
 							name="order_personal_info_form[companyName]"
-							v-bind:value="OrderData.companyName"
-							v-on:input="OrderData.companyName = $event"
+							v-bind:value="deliveryData.companyName"
+							v-on:input="setDeliveryData('companyName', $event)"
 							required
 						/>
 
@@ -69,8 +73,8 @@
 							label="Company number"
 							id="order_personal_info_form_companyNumber"
 							name="order_personal_info_form[companyNumber]"
-							v-bind:value="OrderData.companyNumber"
-							v-on:input="OrderData.companyNumber = $event"
+							v-bind:value="deliveryData.companyNumber"
+							v-on:input="setDeliveryData('companyNumber', $event)"
 							required
 						/>
 
@@ -78,8 +82,8 @@
 							label="Tax number"
 							id="order_personal_info_form_companyTaxNumber"
 							name="order_personal_info_form[companyTaxNumber]"
-							v-bind:value="OrderData.companyTaxNumber"
-							v-on:input="OrderData.companyTaxNumber = $event"
+							v-bind:value="deliveryData.companyTaxNumber"
+							v-on:input="setDeliveryData('companyTaxNumber', $event)"
 							:required="false"
 						/>
 					</div>
@@ -93,8 +97,8 @@
 						label="Street"
 						id="order_personal_info_form_street"
 						name="order_personal_info_form[street]"
-						v-bind:value="OrderData.street"
-						v-on:input="OrderData.street = $event"
+						v-bind:value="deliveryData.street"
+						v-on:input="setDeliveryData('street', $event)"
 						required
 					/>
 
@@ -102,8 +106,8 @@
 						label="City"
 						id="order_personal_info_form_city"
 						name="order_personal_info_form[city]"
-						v-bind:value="OrderData.city"
-						v-on:input="OrderData.city = $event"
+						v-bind:value="deliveryData.city"
+						v-on:input="setDeliveryData('city', $event)"
 						required
 					/>
 
@@ -111,8 +115,8 @@
 						label="Postcode"
 						id="order_personal_info_form_postcode"
 						name="order_personal_info_form[postcode]"
-						v-bind:value="OrderData.postcode"
-						v-on:input="OrderData.postcode = $event"
+						v-bind:value="deliveryData.postcode"
+						v-on:input="setDeliveryData('postcode', $event)"
 						required
 					/>
 
@@ -120,8 +124,8 @@
 						label="Country"
 						id="order_personal_info_form_country"
 						name="order_personal_info_form[country]"
-						v-bind:value="OrderData.country"
-						v-on:input="OrderData.country = $event"
+						v-bind:value="deliveryData.country"
+						v-on:input="setDeliveryData('country', $event)"
 						required
 						:options='[{ "id": 1, "name": "Czechia" }, { "id": 2, "name": "Slovakia" }]'
 					/>
@@ -135,17 +139,17 @@
 						label="I want to deliver products to different address than the billing one"
 						name="order_personal_info_form[deliveryAddressFilled]"
 						id="order_personal_info_form_deliveryAddressFilled"
-						v-bind:value="OrderData.deliveryAddressFilled"
-						v-on:input="OrderData.deliveryAddressFilled = $event"
+						v-bind:value="deliveryData.deliveryAddressFilled"
+						v-on:input="setDeliveryData('deliveryAddressFilled', $event)"
 					/>
-					<div id="js-delivery-address-fields" v-if="OrderData.deliveryAddressFilled">
+					<div id="js-delivery-address-fields" v-if="deliveryData.deliveryAddressFilled">
 					
 						<FormInput 
 							label="First name"
 							id="order_personal_info_form_deliveryFirstName"
 							name="order_personal_info_form[deliveryFirstName]"
-							v-bind:value="OrderData.deliveryFirstName"
-							v-on:input="OrderData.deliveryFirstName = $event"
+							v-bind:value="deliveryData.deliveryFirstName"
+							v-on:input="setDeliveryData('deliveryFirstName', $event)"
 							required
 						/>
 
@@ -153,8 +157,8 @@
 							label="Last name"
 							id="order_personal_info_form_deliveryLastName"
 							name="order_personal_info_form[deliveryLastName]"
-							v-bind:value="OrderData.deliveryLastName"
-							v-on:input="OrderData.deliveryLastName = $event"
+							v-bind:value="deliveryData.deliveryLastName"
+							v-on:input="setDeliveryData('deliveryLastName', $event)"
 							required
 						/>
 
@@ -162,8 +166,8 @@
 							label="Company"
 							id="order_personal_info_form_deliveryCompanyName"
 							name="order_personal_info_form[deliveryCompanyName]"
-							v-bind:value="OrderData.deliveryCompanyName"
-							v-on:input="OrderData.deliveryCompanyName = $event"
+							v-bind:value="deliveryData.deliveryCompanyName"
+							v-on:input="setDeliveryData('deliveryCompanyName', $event)"
 							:required="false"
 						/>
 
@@ -171,8 +175,8 @@
 							label="Telephone"
 							id="order_personal_info_form_deliveryTelephone"
 							name="order_personal_info_form[deliveryTelephone]"
-							v-bind:value="OrderData.deliveryTelephone"
-							v-on:input="OrderData.deliveryTelephone = $event"
+							v-bind:value="deliveryData.deliveryTelephone"
+							v-on:input="setDeliveryData('deliveryTelephone', $event)"
 							required
 						/>
 
@@ -180,8 +184,8 @@
 							label="Street"
 							id="order_personal_info_form_deliveryStreet"
 							name="order_personal_info_form[deliveryStreet]"
-							v-bind:value="OrderData.deliveryStreet"
-							v-on:input="OrderData.deliveryStreet = $event"
+							v-bind:value="deliveryData.deliveryStreet"
+							v-on:input="setDeliveryData('deliveryStreet', $event)"
 							required
 						/>
 
@@ -189,8 +193,8 @@
 							label="City"
 							id="order_personal_info_form_deliveryCity"
 							name="order_personal_info_form[deliveryCity]"
-							v-bind:value="OrderData.deliveryCity"
-							v-on:input="OrderData.deliveryCity = $event"
+							v-bind:value="deliveryData.deliveryCity"
+							v-on:input="setDeliveryData('deliveryCity', $event)"
 							required
 						/>
 
@@ -198,8 +202,8 @@
 							label="Postcode"
 							id="order_personal_info_form_deliveryPostcode"
 							name="order_personal_info_form[deliveryPostcode]"
-							v-bind:value="OrderData.deliveryPostcode"
-							v-on:input="OrderData.deliveryPostcode = $event"
+							v-bind:value="deliveryData.deliveryPostcode"
+							v-on:input="setDeliveryData('deliveryPostcode', $event)"
 							required
 						/>
 
@@ -207,8 +211,8 @@
 							label="Country"
 							id="order_personal_info_form_deliveryCountry"
 							name="order_personal_info_form[deliveryCountry]"
-							v-bind:value="OrderData.deliveryCountry"
-							v-on:input="OrderData.deliveryCountry = $event"
+							v-bind:value="deliveryData.deliveryCountry"
+							v-on:input="setDeliveryData('deliveryCountry', $event)"
 							required
 							:options='[{ "id": 1, "name": "Czechia" }, { "id": 2, "name": "Slovakia" }]'
 						/>
@@ -220,8 +224,8 @@
 						label="Contact us"
 						id="order_personal_info_form_note"
 						name="order_personal_info_form[note]"
-						v-bind:value="OrderData.note"
-						v-on:input="OrderData.note = $event"
+						v-bind:value="deliveryData.note"
+						v-on:input="setDeliveryData('note', $event)"
 					/>
 				</fieldset>
 				<h2>Terms and conditions</h2>
@@ -248,16 +252,16 @@
 					label="I agree with terms and conditions and privacy policy"
 					name="order_personal_info_form[legalConditionsAgreement]"
 					id="order_personal_info_form_legalConditionsAgreement"
-					v-bind:value="OrderData.legalConditionsAgreement"
-					v-on:input="OrderData.legalConditionsAgreement = $event"
+					v-bind:value="deliveryData.legalConditionsAgreement"
+					v-on:input="setDeliveryData('legalConditionsAgreement', $event)"
 				/>
 
 				<FormCheckbox 
 					label="I want to subscribe to the newsletter"
 					name="order_personal_info_form[newsletterSubscription]"
 					id="order_personal_info_form_newsletterSubscription"
-					v-bind:value="OrderData.newsletterSubscription"
-					v-on:input="OrderData.newsletterSubscription = $event"
+					v-bind:value="deliveryData.newsletterSubscription"
+					v-on:input="setDeliveryData('newsletterSubscription', $event)"
 				/>
 
 				</div>
@@ -269,7 +273,7 @@
 						type="submit"
 						id="order_personal_info_form_save"
 						name="order_personal_info_form[save]"
-						class="btn btn--success in-action__btn in-action__btn--big btn"
+						:class="{ 'btn btn--success': true, 'in-action__btn': true, 'in-action__btn--big': true, 'btn--disabled': isBtnDisabled() }"
 						v-on:click="sendOrder"
 					>
 						Finish the order
@@ -296,37 +300,21 @@
 		name: "OrderStepDeliveryData",
 		data: function () {
 			return {
-				OrderData: {
-					firstName: '',
-					lastName: '',
-					email: '',
-					telephone: '',
-					companyCustomer: false,
-					companyName: '',
-					companyNumber: '',
-					companyTaxNumber: '',
-					street: '',
-					city: '',
-					postcode: '',
-					country: '1',
-					deliveryAddressFilled: false,
-					deliveryFirstName: '',
-					deliveryLastName: '',
-					deliveryCompanyName: '',
-					deliveryTelephone: '',
-					deliveryStreet: '',
-					deliveryCity: '',
-					deliveryPostcode: '',
-					deliveryCountry: '1',
-					note: '',
-					legalConditionsAgreement: false,
-					newsletterSubscription: false,
-				}
+				deliveryData: this.$store.state.deliveryData
 			}
 		},
 		methods: {
 			sendOrder: function() {
-				alert(JSON.stringify(this.OrderData));
+				if (this.$store.state.deliveryData.check() === true) {
+					alert(JSON.stringify(this.$store.state.deliveryData));
+				}
+			},
+			setDeliveryData: function(property, value) {
+				this.$store.commit('changeDeliveryData', { property, value });
+				this.$store.state.deliveryData.check();
+			},
+			isBtnDisabled() {
+				return this.$store.state.deliveryData.errors.length > 0;
 			}
 		},
 		props: {
