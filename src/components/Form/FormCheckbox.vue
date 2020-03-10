@@ -35,7 +35,7 @@
 			label: { type: String },
 			name: { type: String },
 			id: { type: String },
-			value: { type: Object }
+			value: {}
 		}
 	}
 </script>

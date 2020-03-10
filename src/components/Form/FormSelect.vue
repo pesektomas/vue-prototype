@@ -44,7 +44,7 @@
 			id: { type: String },
 			required: { type: Boolean },
 			options: { type: Array },
-			value: { type: Object }
+			value: {}
 		}
 	}
 </script>

@@ -36,7 +36,7 @@
 			name: { type: String },
 			id: { type: String },
 			required: { type: Boolean },
-			value: { type: Object }
+			value: {}
 		}
 	}
 </script>
