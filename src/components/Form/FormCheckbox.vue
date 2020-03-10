@@ -7,6 +7,7 @@
 				:name=this.name
 				class="css-checkbox"
 				v-bind:value="value"
+				:checked="value"
 				v-on:input="$emit('input', !value)"
 			/>
 			<label
