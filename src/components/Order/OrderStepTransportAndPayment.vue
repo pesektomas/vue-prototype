@@ -100,8 +100,8 @@
 		name: 'OrderStepTransportAndPayment',
 		data: function() {
 			return {
-				shipping: this.$store.state.orderPreview.shippingMethod.id || 0,
-				payment: this.$store.state.orderPreview.paymentMethod.id || 0
+				shipping: this.$store.state.orderPreview.shippingMethod ? this.$store.state.orderPreview.shippingMethod.id : 0,
+				payment: this.$store.state.orderPreview.paymentMethod ? this.$store.state.orderPreview.paymentMethod.id : 0
 			}
 		},
 		computed: {
