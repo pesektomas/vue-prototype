@@ -18,10 +18,10 @@
 				</p>
 				<div class="list-products__item__info__price">
 					<div class="list-products__item__info__price__item list-products__item__info__price__item--main">
-						{{ product.price.withVat }}
+						{{ product.price.withVat | currency }}
 					</div>
 					<div class="list-products__item__info__price__item">
-						{{ product.price.withoutVat }}
+						{{ product.price.withoutVat | currency }}
 					</div>
 				</div>
 				<div class="list-products__item__info__availability">

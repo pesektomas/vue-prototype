@@ -28,7 +28,7 @@
 			</span>
 		</span>
 		<span class="box-chooser__item__price">
-			{{ price }}
+			{{ price | currency }}
 		</span>
 	</label>
 </template>

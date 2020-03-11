@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueCurrencyFilter from 'vue-currency-filter'
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
@@ -15,6 +16,14 @@ import { shippingMethods, paymentMethods, shippingAndPaymentRelations } from './
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(VueCurrencyFilter, {
+	symbol : '€',
+	thousandsSeparator: ' ',
+	fractionCount: 2,
+	fractionSeparator: ',',
+	symbolPosition: 'back',
+	symbolSpacing: true
+});
 
 const vuexPersist = new VuexPersist({
 	key: 'vue-prototype',

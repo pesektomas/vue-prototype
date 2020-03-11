@@ -8,29 +8,29 @@
 						<strong>{{ product.quantity }} pcs</strong>
 						{{ product.name }}
 					</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ product.priceTotal }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ product.priceTotal | currency }}</td>
 				</tr>
 				<tr class="table-cart-preview__row" v-if="orderPreview.getShippingMethod()">
 					<td class="table-cart-preview__cell">Shipping method: {{ orderPreview.getShippingMethod().name }}</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getShippingMethod().price }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getShippingMethod().price | currency }}</td>
 				</tr>
 				<tr class="table-cart-preview__row" v-if="orderPreview.getPaymentMethod()">
 					<td class="table-cart-preview__cell">Payment method: {{ orderPreview.getPaymentMethod().name }}</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getPaymentMethod().price }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getPaymentMethod().price | currency }}</td>
 				</tr>
 				<tr
 					class="table-cart-preview__row table-cart-preview__row--total table-cart-preview__row--important"
 				>
 					<td class="table-cart-preview__cell">Total price including VAT:</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalPrice }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalPrice| currency }}</td>
 				</tr>
 				<tr class="table-cart-preview__row table-cart-preview__row--total">
 					<td class="table-cart-preview__cell">Total price excluding VAT:</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalPriceExcludingVat }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalPriceExcludingVat| currency }}</td>
 				</tr>
 				<tr class="table-cart-preview__row table-cart-preview__row--total">
 					<td class="table-cart-preview__cell">Total amount of VAT:</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalVat }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ totalVat| currency }}</td>
 				</tr>
 			</tbody>
 		</table>
