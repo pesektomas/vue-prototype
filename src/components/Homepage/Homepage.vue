@@ -12,7 +12,7 @@
 
 		<h3>Special offers</h3>
 		<div class="list-products">
-			<ProductItem v-for="product in products" :key="product.uuid" :product=product />
+			<ProductItem v-for="product in products" :key="product.node.uuid" :product=product.node />
 		</div>
 
 		<ul>
@@ -24,14 +24,60 @@
 <script>
 
 	import ProductItem from '../Product/ProductItem';
-	import { products } from '../../api';
-	
+	import axios from 'axios';
 
 	export default {
 		name: 'Homepage',
 		data: function() {
 			return {
-				products
+				products: []
+			}
+		},
+		created () {
+			this.getTopProducts();
+		},
+		methods: {
+			async getTopProducts () {
+				try {
+					const res = await axios.post(
+						'https://private-e7f631-fwfeapi.apiary-mock.com/graphql?products', {
+							query: `
+								products (first: 3) {
+									edges {
+										node {
+											uuid,
+											name,
+											shortDescription,
+											stockQuantity,
+											price {
+												priceWithVat,
+												priceWithoutVat,
+												vatAmount
+											},
+											images {
+												type,
+												position,
+												size,
+												url,
+												width,
+												height
+											},
+											flags {
+												name,
+												rgbColor
+											},
+											link
+										}
+									}
+								}
+							`
+						}
+					);
+
+					this.products = res.data.data.products.edges
+				} catch (e) {
+					console.log('err', e)
+				}
 			}
 		},
 		computed: {

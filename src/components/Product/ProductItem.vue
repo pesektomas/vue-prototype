@@ -7,7 +7,7 @@
 
 			<div class="list-products__item__image dont-print">
 				<picture>
-					<img :alt=product.image.alt :title=product.image.title :src=product.image.src class="image-product-list loaded" itemprop="image">
+					<img :alt=product.name :title=product.name :src=product.images[0].url class="image-product-list loaded" itemprop="image">
 				</picture>
 				<Flag v-for="flag in product.flags" :key="flag.uuid" :flag=flag />
 			</div>
@@ -18,10 +18,10 @@
 				</p>
 				<div class="list-products__item__info__price">
 					<div class="list-products__item__info__price__item list-products__item__info__price__item--main">
-						{{ product.price.withVat | currency }}
+						{{ product.price.priceWithVat | currency }}
 					</div>
 					<div class="list-products__item__info__price__item">
-						{{ product.price.withoutVat | currency }}
+						{{ product.price.priceWithoutVat | currency }}
 					</div>
 				</div>
 				<div class="list-products__item__info__availability">
@@ -80,11 +80,11 @@
 					uuid: this.product.uuid,
 					name: this.product.name,
 					link: this.product.link,
-					image: this.product.image.src,
-					price: this.product.price.withVat,
-					priceTotal: this.product.price.withVat * this.quantity,
+					image: this.product.images[0].url,
+					price: this.product.price.priceWithVat,
+					priceTotal: this.product.price.priceWithVat * this.quantity,
 					quantity: this.quantity,
-					vat: this.product.price.vat
+					vat: this.product.price.vatAmount
 				});
 			}
 		},
