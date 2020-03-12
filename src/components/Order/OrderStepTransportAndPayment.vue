@@ -10,15 +10,15 @@
 							<div class="box-chooser">
 								<div id="transport_and_payment_form_transport">
 									<OrderStepTransportAndPaymentItem 
-										v-for="shippingMethod in shippingMethodsReal"
-										:key="shippingMethod.id"
-										:id="shippingMethod.id"
-										:image="shippingMethod.image"
-										:name="shippingMethod.name"
-										:price="shippingMethod.price"
-										:value="shipping"
-										:changeValue="setShipping"
-										:disabled="shippingMethod.disabled"
+										v-for="transportMethod in transportMethods"
+										:key="transportMethod.uuid"
+										:id="transportMethod.uuid"
+										:image="transportMethod.images[0].url"
+										:name="transportMethod.name"
+										:price="transportMethod.price.priceWithVat"
+										:value="transport"
+										:changeValue="setTransport"
+										:disabled="isTransportDisabled(transportMethod.uuid)"
 									/>
 								</div>
 							</div>
@@ -32,15 +32,15 @@
 								</span>
 								<div id="transport_and_payment_form_payment">
 									<OrderStepTransportAndPaymentItem 
-										v-for="paymentMethod in paymentMethodsReal"
-										:key="paymentMethod.id"
-										:id="paymentMethod.id"
-										:image="paymentMethod.image"
+										v-for="paymentMethod in paymentMethods"
+										:key="paymentMethod.uuid"
+										:id="paymentMethod.uuid"
+										:image="paymentMethod.images[0].url"
 										:name="paymentMethod.name"
-										:price="paymentMethod.price"
+										:price="paymentMethod.price.priceWithVat"
 										:value="payment"
 										:changeValue="setPayment"
-										:disabled="paymentMethod.disabled"
+										:disabled="isPaymentDisabled(paymentMethod.uuid)"
 									/>
 								</div>
 							</div>
@@ -65,62 +65,22 @@
 	import OrderPreview from './OrderPreview';
 	import OrderStepTransportAndPaymentItem from './OrderStepTransportAndPaymentItem';
 	import OrderNavigation from './OrderNavigation';
-
-	const isPaymentDisabled = (shippingAndPaymentRelations, shippingMethodId, paymentMethodId) => {
-		if (shippingMethodId === 0) {
-			return false;
-		}
-
-		const available = [];
-		shippingAndPaymentRelations.forEach(shippingAndPaymentRelation => {
-			if (shippingAndPaymentRelation.shippingId === shippingMethodId) {
-				available.push(shippingAndPaymentRelation.paymentId);
-			}
-		});
-
-		return !available.includes(paymentMethodId);
-	};
-
-	const isShippingDisabled = (shippingAndPaymentRelations, paymentMethodId, shippingMethodId) => {
-		if (paymentMethodId === 0) {
-			return false;
-		}
-
-		const available = [];
-		shippingAndPaymentRelations.forEach(shippingAndPaymentRelation => {
-			if (shippingAndPaymentRelation.paymentId === paymentMethodId) {
-				available.push(shippingAndPaymentRelation.shippingId);
-			}
-		});
-
-		return !available.includes(shippingMethodId);
-	};
+	import getPayments from '../../api/getPayments';
+	import getTransports from '../../api/getTransports';
 
 	export default {
 		name: 'OrderStepTransportAndPayment',
 		data: function() {
 			return {
-				shipping: this.$store.state.orderPreview.shippingMethod ? this.$store.state.orderPreview.shippingMethod.id : 0,
-				payment: this.$store.state.orderPreview.paymentMethod ? this.$store.state.orderPreview.paymentMethod.id : 0
+				transport: this.$store.state.orderPreview.transportMethod ? this.$store.state.orderPreview.transportMethod.uuid : '',
+				payment: this.$store.state.orderPreview.paymentMethod ? this.$store.state.orderPreview.paymentMethod.uuid : '',
+				transportMethods: [],
+				paymentMethods: []
 			}
 		},
-		computed: {
-			shippingMethodsReal() {
-				return this.$store.state.orderPreview.shippingMethods.map(shippingMethod => {
-					return {
-						...shippingMethod,
-						disabled: isShippingDisabled(this.$store.state.orderPreview.shippingAndPaymentRelations, this.payment, shippingMethod.id)
-					};
-				});
-			},
-			paymentMethodsReal() {
-				return this.$store.state.orderPreview.paymentMethods.map(paymentMethod => {
-					return {
-						...paymentMethod,
-						disabled: isPaymentDisabled(this.$store.state.orderPreview.shippingAndPaymentRelations, this.shipping, paymentMethod.id)
-					};
-				});
-			}
+		async created () {
+			this.transportMethods = await getTransports();
+			this.paymentMethods = await getPayments();
 		},
 		components: {
 			OrderPreview,
@@ -128,26 +88,52 @@
 			OrderNavigation
 		},
 		methods: {
-			setShipping(shipping) {
-				if (shipping === this.shipping) {
-					this.shipping = 0;
+			setTransport(transport) {
+				if (transport === this.transport) {
+					this.transport = '';
 				} else {
-					this.shipping = shipping;
+					this.transport = transport;
 				}
 
-				this.$store.commit('setShippingMethod', this.shipping);
+				this.$store.commit('setTransportMethod', this.transportMethods.find(item => item.uuid === transport));
 			},
 			setPayment(payment) {
 				if (payment === this.payment) {
-					this.payment = 0;
+					this.payment = '';
 				} else {
 					this.payment = payment;
 				}
 
-				this.$store.commit('setPaymentMethod', this.payment);
+				this.$store.commit('setPaymentMethod', this.paymentMethods.find(item => item.uuid === payment));
 			},
 			isBtnDisabled() {
-				return this.$store.state.orderPreview.paymentMethod === null || this.$store.state.orderPreview.shippingMethod === null;
+				return this.$store.state.orderPreview.getPaymentMethod() === null || this.$store.state.orderPreview.getTransportMethod() === null;
+			},
+			isPaymentDisabled (paymentUuid) {
+				if (this.transport === '') {
+					return false;
+				}
+
+				const transportObject = this.transportMethods.find(item => item.uuid === this.transport);
+				if (!transportObject) {
+					return false;
+				}
+
+				const validPaymentUuids = transportObject.payments.map(payment => payment.uuid);
+				return !validPaymentUuids.includes(paymentUuid);
+			},
+			isTransportDisabled (transportUuid) {
+				if (this.payment === '') {
+					return false;
+				}
+
+				const paymentObject = this.paymentMethods.find(item => item.uuid === this.payment);
+				if (!paymentObject) {
+					return false;
+				}
+
+				const validTransportUuids = paymentObject.transports.map(transport => transport.uuid);
+				return !validTransportUuids.includes(transportUuid);
 			}
 		}
 	}

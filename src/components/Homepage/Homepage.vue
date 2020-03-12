@@ -24,7 +24,7 @@
 <script>
 
 	import ProductItem from '../Product/ProductItem';
-	import axios from 'axios';
+	import getTopProducts from '../../api/getTopProducts';
 
 	export default {
 		name: 'Homepage',
@@ -33,52 +33,8 @@
 				products: []
 			}
 		},
-		created () {
-			this.getTopProducts();
-		},
-		methods: {
-			async getTopProducts () {
-				try {
-					const res = await axios.post(
-						'https://private-e7f631-fwfeapi.apiary-mock.com/graphql?products', {
-							query: `
-								products (first: 3) {
-									edges {
-										node {
-											uuid,
-											name,
-											shortDescription,
-											stockQuantity,
-											price {
-												priceWithVat,
-												priceWithoutVat,
-												vatAmount
-											},
-											images {
-												type,
-												position,
-												size,
-												url,
-												width,
-												height
-											},
-											flags {
-												name,
-												rgbColor
-											},
-											link
-										}
-									}
-								}
-							`
-						}
-					);
-
-					this.products = res.data.data.products.edges
-				} catch (e) {
-					console.log('err', e)
-				}
-			}
+		async mounted () {
+			this.products = await getTopProducts();
 		},
 		computed: {
 			cartBox() {

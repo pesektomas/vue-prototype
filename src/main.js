@@ -12,7 +12,6 @@ import OrderStepDeliveryData from './components/Order/OrderStepDeliveryData.vue'
 
 import OrderPreview from './state/OrderPreview';
 import DeliveryData from './state/DeliveryData';
-import { shippingMethods, paymentMethods, shippingAndPaymentRelations } from './api';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -32,22 +31,16 @@ const vuexPersist = new VuexPersist({
 
 const store = new Vuex.Store({
 	state: {
-		orderPreview: new OrderPreview(shippingMethods, paymentMethods, shippingAndPaymentRelations),
+		orderPreview: new OrderPreview(),
 		productsInCart: [],
 		deliveryData: new DeliveryData()
 	},
 	mutations: {
-		setShippingMethod (state, shippingMethod) {
-			state.orderPreview.setShippingMethod(shippingMethod);
+		setTransportMethod (state, transportMethod) {
+			state.orderPreview.setTransportMethod(transportMethod);
 		},
 		setPaymentMethod(state, paymentMethod) {
 			state.orderPreview.setPaymentMethod(paymentMethod);
-		},
-		setShippingMethods (state, shippingMethods) {
-			state.orderPreview.setShippingMethods(shippingMethods);
-		},
-		setPaymentMethods(state, paymentMethods) {
-			state.orderPreview.setPaymentMethods(paymentMethods);
 		},
 		addProductIntoCart(state, productToCart) {
 			state.productsInCart.push(productToCart);

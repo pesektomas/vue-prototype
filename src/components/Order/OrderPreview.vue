@@ -10,13 +10,13 @@
 					</td>
 					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ product.priceTotal | currency }}</td>
 				</tr>
-				<tr class="table-cart-preview__row" v-if="orderPreview.getShippingMethod()">
-					<td class="table-cart-preview__cell">Shipping method: {{ orderPreview.getShippingMethod().name }}</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getShippingMethod().price | currency }}</td>
+				<tr class="table-cart-preview__row" v-if="orderPreview.getTransportMethod()">
+					<td class="table-cart-preview__cell">Shipping method: {{ orderPreview.getTransportMethod().name }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getTransportMethod().price.priceWithVat | currency }}</td>
 				</tr>
 				<tr class="table-cart-preview__row" v-if="orderPreview.getPaymentMethod()">
 					<td class="table-cart-preview__cell">Payment method: {{ orderPreview.getPaymentMethod().name }}</td>
-					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getPaymentMethod().price | currency }}</td>
+					<td class="table-cart-preview__cell table-cart-preview__cell--price">{{ orderPreview.getPaymentMethod().price.priceWithVat | currency }}</td>
 				</tr>
 				<tr
 					class="table-cart-preview__row table-cart-preview__row--total table-cart-preview__row--important"
@@ -52,12 +52,12 @@
 					return sum += product.priceTotal;
 				}, 0);
 
-				if (this.$store.state.orderPreview.getShippingMethod()) {
-					totalPrice += this.$store.state.orderPreview.getShippingMethod().price;
+				if (this.$store.state.orderPreview.getTransportMethod()) {
+					totalPrice += parseFloat(this.$store.state.orderPreview.getTransportMethod().price.priceWithVat);
 				}
 
 				if (this.$store.state.orderPreview.getPaymentMethod()) {
-					totalPrice += this.$store.state.orderPreview.getPaymentMethod().price;
+					totalPrice += parseFloat(this.$store.state.orderPreview.getPaymentMethod().price.priceWithVat);
 				}
 
 				return totalPrice;
@@ -68,16 +68,12 @@
 					return sum += priceExcludingVat;
 				}, 0);
 
-				if (this.$store.state.orderPreview.getShippingMethod()) {
-					const shippingMethod = this.$store.state.orderPreview.getShippingMethod();
-					const priceExcludingVat = shippingMethod.price * (100 / (100 + shippingMethod.vat))
-					totalPriceExcludingVat += priceExcludingVat;
+				if (this.$store.state.orderPreview.getTransportMethod()) {
+					totalPriceExcludingVat += parseFloat(this.$store.state.orderPreview.getTransportMethod().price.priceWithoutVat);
 				}
 
 				if (this.$store.state.orderPreview.getPaymentMethod()) {
-					const paymentMethod = this.$store.state.orderPreview.getPaymentMethod();
-					const priceExcludingVat = paymentMethod.price * (100 / (100 + paymentMethod.vat))
-					totalPriceExcludingVat += priceExcludingVat;
+					totalPriceExcludingVat += parseFloat(this.$store.state.orderPreview.getPaymentMethod().price.priceWithoutVat);
 				}
 
 				return Math.ceil(totalPriceExcludingVat);

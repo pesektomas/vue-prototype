@@ -1,30 +1,19 @@
 export default class OrderPreview {
-	constructor(shippingMethods, paymentMethods, shippingAndPaymentRelations) {
-		this.shippingMethods = shippingMethods;
-		this.paymentMethods = paymentMethods;
-		this.shippingAndPaymentRelations = shippingAndPaymentRelations;
-		this.shippingMethod = null;
+	constructor() {
+		this.transportMethod = null;
 		this.paymentMethod = null;
 	}
 
-	setShippingMethods(shippingMethods) {
-		this.shippingMethods = shippingMethods;
+	setTransportMethod(transportMethod) {
+		this.transportMethod = transportMethod;
 	}
 
-	setPaymentMethods(paymentMethods) {
-		this.paymentMethods = paymentMethods;
+	setPaymentMethod(paymentMethod) {
+		this.paymentMethod = paymentMethod;
 	}
 
-	setShippingMethod(shippingMethodId) {
-		this.shippingMethod = this.shippingMethods.find(item => item.id === shippingMethodId);
-	}
-
-	setPaymentMethod(paymentMethodId) {
-		this.paymentMethod = this.paymentMethods.find(item => item.id === paymentMethodId);
-	}
-
-	getShippingMethod() {
-		return this.shippingMethod;
+	getTransportMethod() {
+		return this.transportMethod;
 	}
 
 	getPaymentMethod() {

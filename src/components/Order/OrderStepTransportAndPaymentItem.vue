@@ -37,12 +37,12 @@
 	export default {
 		name: 'OrderStepTransportAndPaymentItem',
 		props: {
-			id: { type: Number },
+			id: { type: String },
 			image: { type: String },
 			name: { type: String },
 			description: { type: String },
-			price: { type: Number },
-			value: { type: Number },
+			price: { type: String },
+			value: { type: String },
 			changeValue: { type: Function},
 			disabled: { type: Boolean }
 		},
