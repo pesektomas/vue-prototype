@@ -199,4 +199,57 @@ export default class DeliveryData {
 		return this.errors.length === 0;
 
 	}
+
+	getData(orderPreview, products) {
+		console.log(products);
+		return {
+			firstName: this.firstName,
+			lastName: this.lastName,
+			email: this.email,
+			telephone: this.telephone,
+			onCompanyBehalf: this.companyCustomer,
+			companyName: this.companyName,
+			companyNumber: this.companyNumber,
+			companyTaxNumber: this.companyTaxNumber,
+			street: this.street,
+			city: this.city,
+			postcode: this.postcode,
+			country: this.country,
+			note:this.note,
+			differentDeliveryAddress: this.deliveryAddressFilled,
+			deliveryFirstName: this.deliveryFirstName,
+			deliveryLastName: this.deliveryLastName,
+			deliveryStreet: this.deliveryStreet,
+			deliveryCity: this.deliveryCity,
+			deliveryCountry: this.deliveryCountry,
+			deliveryPostcode: this.deliveryPostcode,
+			payment: {
+				uuid: orderPreview.paymentMethod.uuid,
+				price: {
+					priceWithVat: orderPreview.paymentMethod.price.priceWithVat,
+					priceWithoutVat: orderPreview.paymentMethod.price.priceWithoutVat,
+					vatAmount: orderPreview.paymentMethod.price.vatAmount
+				}
+			},
+			transport: {
+				uuid: orderPreview.transportMethod.uuid,
+				price: {
+					priceWithVat: orderPreview.transportMethod.price.priceWithVat,
+					priceWithoutVat: orderPreview.transportMethod.price.priceWithoutVat,
+					vatAmount: orderPreview.transportMethod.price.vatAmount
+				}
+			},
+			products: products.map(product => {
+				return {
+					uuid: product.uuid,
+					unitPrice: {
+						priceWithVat: product.price,
+						priceWithoutVat: product.price - product.vat,
+						vatAmount: product.vat
+					},
+					quantity: product.quantity
+				}
+			})
+		};
+	}
 }

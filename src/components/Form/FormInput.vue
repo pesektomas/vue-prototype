@@ -30,7 +30,6 @@
 
 <script>
 	export default {
-		name: 'FormInput',
 		props: {
 			label: { type: String },
 			name: { type: String },

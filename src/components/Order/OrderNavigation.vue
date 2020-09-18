@@ -6,9 +6,9 @@
 		<div class="web__line">
 			<div class="web__container">
 				<ul class="box-progress">
-					<NavigationStep stepNum="1" stepName="Cart" stepPath="/order" key="cart" />
-					<NavigationStep stepNum="2" stepName="Shipping and payment" stepPath="/order/2" key="shippingAndPayment" />
-					<NavigationStep stepNum="3" stepName="Delivery data" stepPath="/order/3" key="deliveryData" />
+					<navigation-step stepNum="1" stepName="Cart" stepPath="/order" key="cart" />
+					<navigation-step stepNum="2" stepName="Shipping and payment" stepPath="/order/2" key="shippingAndPayment" />
+					<navigation-step stepNum="3" stepName="Delivery data" stepPath="/order/3" key="deliveryData" />
 				</ul>
 			</div>
 		</div>
@@ -17,10 +17,9 @@
 
 <script>
 
-	import NavigationStep from './navigation/NavigationStep';
+	import NavigationStep from './Navigation/NavigationStep';
 
 	export default {
-		name: 'OrderNavigation',
 		components: {
 			NavigationStep
 		}

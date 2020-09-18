@@ -28,7 +28,6 @@
 
 <script>
 	export default {
-		name: 'FormTextarea',
 		props: {
 			label: { type: String },
 			name: { type: String },

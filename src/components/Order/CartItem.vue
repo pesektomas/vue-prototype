@@ -41,7 +41,6 @@
 
 <script>
 	export default {
-		name: 'CartItem',
 		props: {
 			product: { type: Object },
 			plusQuantity: { type: Function },

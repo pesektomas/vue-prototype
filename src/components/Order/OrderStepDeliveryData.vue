@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<OrderNavigation />
+		<order-navigation />
 		<div class="web__line" v-if="deliveryData.errors.length > 0">
 			{{ deliveryData.errors }}
 		</div>
@@ -11,7 +11,7 @@
 				<div class="box-order__info">
 				<h2>Personal data</h2>
 				<fieldset>
-					<FormInput 
+					<form-input
 						label="First name"
 						id="order_personal_info_form_firstName"
 						name="order_personal_info_form[firstName]"
@@ -20,7 +20,7 @@
 						required
 					/>
 
-					<FormInput 
+					<form-input
 						label="Last name"
 						id="order_personal_info_form_lastName"
 						name="order_personal_info_form[lastName]"
@@ -28,8 +28,8 @@
 						v-on:input="setDeliveryData('lastName', $event)"
 						required
 					/>
-					
-					<FormInput 
+
+					<form-input
 						label="Email"
 						id="order_personal_info_form_email"
 						name="order_personal_info_form[email]"
@@ -38,7 +38,7 @@
 						required
 					/>
 
-					<FormInput 
+					<form-input
 						label="Telephone"
 						id="order_personal_info_form_telephone"
 						name="order_personal_info_form[telephone]"
@@ -52,7 +52,7 @@
 					<span class="heading-addition">(If I buy on the company behalf)</span>
 				</h2>
 				<fieldset>
-					<FormCheckbox 
+					<form-checkbox
 						label="I buy on company behalf"
 						name="order_personal_info_form[companyCustomer]"
 						id="order_personal_info_form_companyCustomer"
@@ -60,7 +60,7 @@
 						v-on:input="setDeliveryData('companyCustomer', $event)"
 					/>
 					<div id="js-company-fields" v-if="deliveryData.companyCustomer">
-						<FormInput 
+						<form-input
 							label="Company name"
 							id="order_personal_info_form_companyName"
 							name="order_personal_info_form[companyName]"
@@ -69,7 +69,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Company number"
 							id="order_personal_info_form_companyNumber"
 							name="order_personal_info_form[companyNumber]"
@@ -78,7 +78,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Tax number"
 							id="order_personal_info_form_companyTaxNumber"
 							name="order_personal_info_form[companyTaxNumber]"
@@ -93,7 +93,7 @@
 					<span class="heading-addition">(This address will be on the tax invoice)</span>
 				</h2>
 				<fieldset>
-					<FormInput 
+					<form-input
 						label="Street"
 						id="order_personal_info_form_street"
 						name="order_personal_info_form[street]"
@@ -102,7 +102,7 @@
 						required
 					/>
 
-					<FormInput 
+					<form-input
 						label="City"
 						id="order_personal_info_form_city"
 						name="order_personal_info_form[city]"
@@ -111,7 +111,7 @@
 						required
 					/>
 
-					<FormInput 
+					<form-input
 						label="Postcode"
 						id="order_personal_info_form_postcode"
 						name="order_personal_info_form[postcode]"
@@ -120,14 +120,14 @@
 						required
 					/>
 
-					<FormSelect
+					<form-select
 						label="Country"
 						id="order_personal_info_form_country"
 						name="order_personal_info_form[country]"
 						v-bind:value="deliveryData.country"
 						v-on:input="setDeliveryData('country', $event)"
 						required
-						:options='[{ "id": 1, "name": "Czechia" }, { "id": 2, "name": "Slovakia" }]'
+						:options='[{ "id": "CZ", "name": "Czechia" }, { "id": "SK", "name": "Slovakia" }]'
 					/>
 				</fieldset>
 				<h2>
@@ -135,7 +135,7 @@
 					<span class="heading-addition">(Products will be delivered to this address)</span>
 				</h2>
 				<fieldset>
-					<FormCheckbox 
+					<form-checkbox
 						label="I want to deliver products to different address than the billing one"
 						name="order_personal_info_form[deliveryAddressFilled]"
 						id="order_personal_info_form_deliveryAddressFilled"
@@ -143,8 +143,8 @@
 						v-on:input="setDeliveryData('deliveryAddressFilled', $event)"
 					/>
 					<div id="js-delivery-address-fields" v-if="deliveryData.deliveryAddressFilled">
-					
-						<FormInput 
+
+						<form-input
 							label="First name"
 							id="order_personal_info_form_deliveryFirstName"
 							name="order_personal_info_form[deliveryFirstName]"
@@ -153,7 +153,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Last name"
 							id="order_personal_info_form_deliveryLastName"
 							name="order_personal_info_form[deliveryLastName]"
@@ -162,7 +162,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Company"
 							id="order_personal_info_form_deliveryCompanyName"
 							name="order_personal_info_form[deliveryCompanyName]"
@@ -171,7 +171,7 @@
 							:required="false"
 						/>
 
-						<FormInput 
+						<form-input
 							label="Telephone"
 							id="order_personal_info_form_deliveryTelephone"
 							name="order_personal_info_form[deliveryTelephone]"
@@ -180,7 +180,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Street"
 							id="order_personal_info_form_deliveryStreet"
 							name="order_personal_info_form[deliveryStreet]"
@@ -189,7 +189,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="City"
 							id="order_personal_info_form_deliveryCity"
 							name="order_personal_info_form[deliveryCity]"
@@ -198,7 +198,7 @@
 							required
 						/>
 
-						<FormInput 
+						<form-input
 							label="Postcode"
 							id="order_personal_info_form_deliveryPostcode"
 							name="order_personal_info_form[deliveryPostcode]"
@@ -207,7 +207,7 @@
 							required
 						/>
 
-						<FormSelect
+						<form-select
 							label="Country"
 							id="order_personal_info_form_deliveryCountry"
 							name="order_personal_info_form[deliveryCountry]"
@@ -220,7 +220,7 @@
 				</fieldset>
 				<h2>Note</h2>
 				<fieldset>
-					<FormTextarea
+					<form-textarea
 						label="Contact us"
 						id="order_personal_info_form_note"
 						name="order_personal_info_form[note]"
@@ -233,14 +233,14 @@
 					<div class="box-condition__in">
 						<iframe
 							name="js-terms-and-conditions-frame"
-							src="http://127.0.0.1:8000/order/terms-and-conditions/"
+							src="http://frontend-api.loki.shopsys.com/order/terms-and-conditions/"
 							width="100%"
 						></iframe>
 					</div>
 					<div class="box-condition__control">
 						<button id="js-terms-and-conditions-print" class="btn btn--small" type="button">Print</button>
 						<a
-							href="http://127.0.0.1:8000/order/terms-and-conditions-download/"
+							href="http://frontend-api.loki.shopsys.com/order/terms-and-conditions-download/"
 							class="btn btn--small"
 						>
 							Download
@@ -248,7 +248,7 @@
 					</div>
 				</div>
 
-				<FormCheckbox 
+				<form-checkbox
 					label="I agree with terms and conditions and privacy policy"
 					name="order_personal_info_form[legalConditionsAgreement]"
 					id="order_personal_info_form_legalConditionsAgreement"
@@ -256,7 +256,7 @@
 					v-on:input="setDeliveryData('legalConditionsAgreement', $event)"
 				/>
 
-				<FormCheckbox 
+				<form-checkbox
 					label="I want to subscribe to the newsletter"
 					name="order_personal_info_form[newsletterSubscription]"
 					id="order_personal_info_form_newsletterSubscription"
@@ -265,7 +265,7 @@
 				/>
 
 				</div>
-				<OrderPreview :orderPreview=orderPreview />
+				<order-preview :orderPreview=orderPreview />
 			</div>
 			<div class="in-action">
 				<div class="in-action__right">
@@ -289,15 +289,16 @@
 </template>
 
 <script>
+
+	import gql from 'graphql-tag';
 	import OrderPreview from './OrderPreview';
 	import OrderNavigation from './OrderNavigation';
 	import FormInput from '../Form/FormInput';
 	import FormSelect from '../Form/FormSelect';
 	import FormCheckbox from '../Form/FormCheckbox';
 	import FormTextarea from '../Form/FormTextarea';
-	
+
 	export default {
-		name: "OrderStepDeliveryData",
 		data: function () {
 			return {
 				deliveryData: this.$store.state.deliveryData
@@ -306,7 +307,23 @@
 		methods: {
 			sendOrder: function() {
 				if (this.$store.state.deliveryData.check() === true) {
-					alert(JSON.stringify(this.$store.state.deliveryData));
+					this.$apollo.mutate({
+						mutation: gql`mutation createOrder ($data: OrderInput!) {
+							CreateOrder( input: $data ) {
+								number
+							}
+						}`,
+						variables: {
+							data: this.$store.state.deliveryData.getData(this.$store.state.orderPreview, this.$store.state.productsInCart)
+						}
+					}).then((data) => {
+						this.$store.commit('clearProductsAndOrderPreview');
+						this.$router.push(`/order/4/${data.data.CreateOrder.number}`);
+					}).catch((error) => {
+						console.log(error)
+					});
+				} else {
+					alert(this.$store.state.deliveryData.errors);
 				}
 			},
 			setDeliveryData: function(property, value) {

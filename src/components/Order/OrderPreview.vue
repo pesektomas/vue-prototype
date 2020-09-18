@@ -39,7 +39,6 @@
 
 <script>
 	export default {
-		name: 'OrderPreview',
 		computed: {
 			orderPreview() {
 				return this.$store.state.orderPreview;

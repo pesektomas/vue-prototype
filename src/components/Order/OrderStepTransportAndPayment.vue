@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<OrderNavigation />
+		<order-navigation />
 		<div class="web__line">
 			<div class="web__container">
 				<div class="box-order">
@@ -9,7 +9,7 @@
 							<h2 id="js-label-transport_and_payment_form_transport">Shipping selection</h2>
 							<div class="box-chooser">
 								<div id="transport_and_payment_form_transport">
-									<OrderStepTransportAndPaymentItem 
+									<order-step-transport-and-payment-item
 										v-for="transportMethod in transportMethods"
 										:key="transportMethod.uuid"
 										:id="transportMethod.uuid"
@@ -31,7 +31,7 @@
 									<ul class="form-error__list"></ul>
 								</span>
 								<div id="transport_and_payment_form_payment">
-									<OrderStepTransportAndPaymentItem 
+									<order-step-transport-and-payment-item
 										v-for="paymentMethod in paymentMethods"
 										:key="paymentMethod.uuid"
 										:id="paymentMethod.uuid"
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					</div>
-					<OrderPreview />
+					<order-preview />
 				</div>
 				<div class="in-action">
 					<div class="in-action__right">
@@ -62,14 +62,14 @@
 </template>
 
 <script>
+
+	import { GET_TRANSPORTS } from '../../model/Transport/getTransportsQuery';
+	import { GET_PAYMENTS } from '../../model/Payment/getPaymentsQuery';
 	import OrderPreview from './OrderPreview';
 	import OrderStepTransportAndPaymentItem from './OrderStepTransportAndPaymentItem';
 	import OrderNavigation from './OrderNavigation';
-	import getPayments from '../../api/getPayments';
-	import getTransports from '../../api/getTransports';
 
 	export default {
-		name: 'OrderStepTransportAndPayment',
 		data: function() {
 			return {
 				transport: this.$store.state.orderPreview.transportMethod ? this.$store.state.orderPreview.transportMethod.uuid : '',
@@ -78,9 +78,15 @@
 				paymentMethods: []
 			}
 		},
-		async created () {
-			this.transportMethods = await getTransports();
-			this.paymentMethods = await getPayments();
+		apollo: {
+			transportMethods: {
+				query: GET_TRANSPORTS,
+				update: data => data.transports
+			},
+			paymentMethods: {
+				query: GET_PAYMENTS,
+				update: data => data.payments
+			}
 		},
 		components: {
 			OrderPreview,

@@ -1,12 +1,12 @@
 <template>
 	<label class="box-chooser__item box-chooser__item--active" for="transport_and_payment_form_transport_0">
 		<span class="box-chooser__item__check">
-			<input 
+			<input
 				type="radio"
 				class="css-radio"
 				:name="name"
 				:value="id"
-				:data-id="id" 
+				:data-id="id"
 				:checked="id == value"
 				@change="changeValue(parseInt(event.target.value, 10))"
 				:disabled="disabled"
@@ -35,7 +35,6 @@
 
 <script>
 	export default {
-		name: 'OrderStepTransportAndPaymentItem',
 		props: {
 			id: { type: String },
 			image: { type: String },
@@ -46,13 +45,5 @@
 			changeValue: { type: Function},
 			disabled: { type: Boolean }
 		},
-		computed: {
-			shouldBeChecked() {
-				console.log(this.id); // eslint-disable-line no-console
-				console.log(this.value); // eslint-disable-line no-console
-
-				return true;
-			}
-		}
 	}
 </script>

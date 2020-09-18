@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<OrderNavigation />
+		<order-navigation />
 		<div class="web__line">
 			<div class="web__container">
 				<h1>Your cart</h1>
@@ -18,8 +18,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<CartItem 
-								v-for="product in productsInCart" 
+							<cart-item
+								v-for="product in productsInCart"
 								:key="product.uuid"
 								:product="product"
 								:plusQuantity="plusQuantity"
@@ -74,9 +74,8 @@
 <script>
 	import CartItem from './CartItem';
 	import OrderNavigation from './OrderNavigation';
-	
+
 	export default {
-		name: 'OrderStepCart',
 		components: {
 			CartItem,
 			OrderNavigation
@@ -84,7 +83,7 @@
 		methods: {
 			removeItem(productUuid) {
 				this.$store.commit('removeProductFromCart', productUuid);
-			}, 
+			},
 			plusQuantity(productUuid) {
 				const productToUpdate = this.$store.state.productsInCart.find(item => item.uuid  === productUuid);
 				const productIdx = this.$store.state.productsInCart.indexOf(productToUpdate);

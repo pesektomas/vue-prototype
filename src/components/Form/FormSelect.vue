@@ -14,15 +14,15 @@
 				v-bind:value="value"
 				v-on:input="$emit('input', $event.target.value)"
 			>
-				<option 
-					v-for="option in this.options" 
+				<option
+					v-for="option in this.options"
 					:key=option.id
 					:value=option.id
 				>
 					{{ option.name }}
 				</option>
 			</select>
-			
+
 			<span
 				class="js-validation-errors-list js-validation-error-list-order_personal_info_form_country form-error form-error--line display-none"
 			>
@@ -37,7 +37,6 @@
 
 <script>
 	export default {
-		name: 'FormSelect',
 		props: {
 			label: { type: String },
 			name: { type: String },
