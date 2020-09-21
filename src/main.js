@@ -1,7 +1,6 @@
 import App from "./App.vue";
 import Vue from 'vue';
 import VueApollo from 'vue-apollo'
-import VueCurrencyFilter from 'vue-currency-filter'
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import getSlug from 'speakingurl';
@@ -13,15 +12,6 @@ import { createStore } from "./model/Store/storeFactory";
 Vue.use(VueApollo)
 Vue.use(VueRouter);
 Vue.use(Vuex);
-
-Vue.use(VueCurrencyFilter, {
-	symbol : '€',
-	thousandsSeparator: ' ',
-	fractionCount: 2,
-	fractionSeparator: ',',
-	symbolPosition: 'back',
-	symbolSpacing: true
-});
 
 Vue.mixin({
 	methods: {
