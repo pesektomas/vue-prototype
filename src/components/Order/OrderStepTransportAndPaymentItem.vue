@@ -28,8 +28,7 @@
 			</span>
 		</span>
 		<span class="box-chooser__item__price">
-			<!-- TODO add currency filter -->
-			{{ price }}
+			{{ price | currency }}
 		</span>
 	</label>
 </template>
