@@ -9,8 +9,9 @@
 					<div class="cart__info js-cart-info">
 						<div v-if="cartBox.items > 0">
 							<router-link to="/order" class="nav-link" v-if="cartBox.items > 0">
-								<strong class="cart__state">{{ cartBox.items }}</strong> 
-									item for <strong class="cart__state">{{ cartBox.totalPrice | currency }}
+								<!-- TODO add currency filter -->
+								<strong class="cart__state">{{ cartBox.items }}</strong>
+									item for <strong class="cart__state">{{ cartBox.totalPrice }}
 								</strong>
 							</router-link>
 						</div>

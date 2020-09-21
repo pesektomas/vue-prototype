@@ -11,10 +11,12 @@
 		<div class="box-detail-add">
 			<div class="box-detail-add__prices">
 				<div class="box-detail-add__prices__item box-detail-add__prices__item--main">
-					{{ product.price.priceWithVat | currency }}
+					<!-- TODO add currency filter -->
+					{{ product.price.priceWithVat }}
 				</div>
 				<div class="box-detail-add__prices__item">
-					{{ product.price.priceWithoutVat | currency }} excluding VAT
+					<!-- TODO add currency filter -->
+					{{ product.price.priceWithoutVat }} excluding VAT
 				</div>
 			</div>
 

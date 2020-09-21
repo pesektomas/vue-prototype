@@ -21,10 +21,12 @@
 					<h3 class="list-products-line__item__title">{{bestsellingProduct.name}}</h3>
 					<div class="list-products-line__item__price">
 						<div class="list-products-line__item__price__item list-products-line__item__price__item--main">
-							{{ bestsellingProduct.price.priceWithVat | currency }}
+							<!-- TODO add currency filter -->
+							{{ bestsellingProduct.price.priceWithVat }}
 						</div>
 						<div class="list-products-line__item__price__item">
-							{{ bestsellingProduct.price.priceWithoutVat | currency }} excluding VAT
+							<!-- TODO add currency filter -->
+							{{ bestsellingProduct.price.priceWithoutVat }} excluding VAT
 						</div>
 					</div>
 				</router-link>

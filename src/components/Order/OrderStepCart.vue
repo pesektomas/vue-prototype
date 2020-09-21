@@ -35,7 +35,8 @@
 								<td class="table-cart__cell table-cart__cell--total-price" colspan="3">
 									Total price including VAT:
 									<span>
-										{{totalPrice| currency}}
+										<!-- TODO add currency filter -->
+										{{totalPrice}}
 									</span>
 								</td>
 								<td class="table-cart__cell">&nbsp;</td>

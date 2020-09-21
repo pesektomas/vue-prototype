@@ -12,11 +12,13 @@
 				{{product.name}}
 			</a>
 			<div class="table-cart__cell__price-mobile">
-				{{product.price | currency}}
+				<!-- TODO add currency filter -->
+				{{product.price}}
 			</div>
 		</td>
 		<td class="table-cart__cell table-cart__cell--price">
-			{{product.price | currency}}
+			<!-- TODO add currency filter -->
+			{{product.price}}
 		</td>
 		<td class="table-cart__cell table-cart__cell--price">
 			{{product.vat}}%
@@ -29,7 +31,8 @@
 			</span>
 		</td>
 		<td class="table-cart__cell table-cart__cell--price">
-			{{product.priceTotal| currency}}
+			<!-- TODO add currency filter -->
+			{{product.priceTotal}}
 		</td>
 		<td class="table-cart__cell table-cart__cell--action">
 			<a v-on:click="removeItem(product.uuid)">
