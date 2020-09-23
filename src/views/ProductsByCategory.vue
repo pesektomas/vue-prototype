@@ -19,12 +19,12 @@
 
 <script>
 
-	import { GET_CATEGORY_DETAIL } from '../../../model/Category/getCategoryDetailQuery';
-	import Breadcrumb from '../../Breadcrumb/Breadcrumb';
-	import ListOfSubcategories from '../../Category/ListOfSubcategories';
-	import BestsellersList from '../../Product/Bestsellers/BestsellersList';
-	import ProductFilter from '../../Product/Filter/ProductFilter';
-	import ProductList from './ProductList';
+	import { GET_CATEGORY_DETAIL } from '../model/Category/getCategoryDetailQuery';
+	import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+	import ListOfSubcategories from '../components/Category/ListOfSubcategories';
+	import BestsellersList from '../components/Product/Bestsellers/BestsellersList';
+	import ProductFilter from '../components/Product/Filter/ProductFilter';
+	import ProductList from '../components/Product/Lists/ProductList';
 
 	export default {
 		data: function () {

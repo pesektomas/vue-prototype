@@ -63,11 +63,11 @@
 
 <script>
 
-	import { GET_TRANSPORTS } from '../../model/Transport/getTransportsQuery';
-	import { GET_PAYMENTS } from '../../model/Payment/getPaymentsQuery';
-	import OrderPreview from './OrderPreview';
-	import OrderStepTransportAndPaymentItem from './OrderStepTransportAndPaymentItem';
-	import OrderNavigation from './OrderNavigation';
+	import { GET_TRANSPORTS } from '../model/Transport/getTransportsQuery';
+	import { GET_PAYMENTS } from '../model/Payment/getPaymentsQuery';
+	import OrderPreview from '../components/Order/OrderPreview';
+	import OrderStepTransportAndPaymentItem from '../components/Order/OrderStepTransportAndPaymentItem';
+	import OrderNavigation from '../components/Order/OrderNavigation';
 
 	export default {
 		data: function() {

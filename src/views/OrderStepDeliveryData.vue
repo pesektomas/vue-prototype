@@ -291,12 +291,12 @@
 <script>
 
 	import gql from 'graphql-tag';
-	import OrderPreview from './OrderPreview';
-	import OrderNavigation from './OrderNavigation';
-	import FormInput from '../Form/FormInput';
-	import FormSelect from '../Form/FormSelect';
-	import FormCheckbox from '../Form/FormCheckbox';
-	import FormTextarea from '../Form/FormTextarea';
+	import OrderPreview from '../components/Order/OrderPreview';
+	import OrderNavigation from '../components/Order/OrderNavigation';
+	import FormInput from '../components/Form/FormInput';
+	import FormSelect from '../components/Form/FormSelect';
+	import FormCheckbox from '../components/Form/FormCheckbox';
+	import FormTextarea from '../components/Form/FormTextarea';
 
 	export default {
 		data: function () {

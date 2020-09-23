@@ -72,8 +72,8 @@
 </template>
 
 <script>
-	import CartItem from './CartItem';
-	import OrderNavigation from './OrderNavigation';
+	import CartItem from '../components/Order/CartItem';
+	import OrderNavigation from '../components/Order/OrderNavigation';
 
 	export default {
 		components: {

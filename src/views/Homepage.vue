@@ -8,9 +8,9 @@
 
 <script>
 
-	import PopularCategories from './PopularCategories';
-	import Slider from './Slider';
-	import SpecialOffer from './SpecialOffer';
+	import PopularCategories from '../components/Homepage/PopularCategories';
+	import Slider from '../components/Homepage/Slider';
+	import SpecialOffer from '../components/Homepage/SpecialOffer';
 
 	export default {
 		data: function() {

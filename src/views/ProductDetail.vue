@@ -17,11 +17,11 @@
 
 <script>
 
-	import { GET_PRODUCT_DETAIL } from '../../model/Product/getProductDetailQuery';
-	import Breadcrumb from '../Breadcrumb/Breadcrumb.vue';
-	import ProductDetailBoxImage from './ProductDetailBoxImage.vue';
-	import ProductDetailBoxInfo from './ProductDetailBoxInfo.vue';
-	import ProductDetailTab from './Tab/ProductDetailTab.vue';
+	import { GET_PRODUCT_DETAIL } from '../model/Product/getProductDetailQuery';
+	import Breadcrumb from '../components/Breadcrumb/Breadcrumb.vue';
+	import ProductDetailBoxImage from '../components/Product/ProductDetailBoxImage.vue';
+	import ProductDetailBoxInfo from '../components/Product/ProductDetailBoxInfo.vue';
+	import ProductDetailTab from '../components/Product/Tab/ProductDetailTab.vue';
 
 	export default {
 		data: function () {

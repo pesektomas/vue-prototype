@@ -1,11 +1,11 @@
 import VueRouter from "vue-router";
-import Homepage from "@/components/Homepage/Homepage";
-import ProductDetail from "@/components/Product/ProductDetail";
-import CategoryList from "@/components/Product/Lists/ProductsByCategory";
-import OrderStepCart from "@/components/Order/OrderStepCart";
-import OrderStepTransportAndPayment from "@/components/Order/OrderStepTransportAndPayment";
-import OrderStepDeliveryData from "@/components/Order/OrderStepDeliveryData";
-import OrderSent from "@/components/Order/OrderSent";
+import Homepage from "@/views/Homepage";
+import ProductDetail from "@/views/ProductDetail";
+import CategoryList from "@/views/ProductsByCategory";
+import OrderStepCart from "@/views/OrderStepCart";
+import OrderStepTransportAndPayment from "@/views/OrderStepTransportAndPayment";
+import OrderStepDeliveryData from "@/views/OrderStepDeliveryData";
+import OrderSent from "@/views/OrderSent";
 
 export function createRouter() {
 	return new VueRouter({
