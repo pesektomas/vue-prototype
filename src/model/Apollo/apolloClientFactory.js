@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 export function createApolloClient() {
 
 	const httpLink = createHttpLink({
-		uri: 'http://frontend-api.loki.shopsys.com/graphql/',
+		uri: 'https://demo.prod.shopsys.cloud/graphql/',
 		//uri: 'https://private-e7f631-fwfeapi.apiary-mock.com/graphql?products',
 	})
 
